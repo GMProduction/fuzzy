@@ -1,4 +1,4 @@
-@extends('siswa.base')
+@extends('dudi.base')
 
 @section('title')
     Data Siswa
@@ -17,66 +17,35 @@
 
         <div class="row">
             <div class="col-8">
+
+
                 <div class="table-container">
 
 
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h5>Data Dudi</h5>
+                        <h5>Kebutuhan Nilai</h5>
                     </div>
 
+                    <div class="mb-3">
+                        <label for="nim" class="form-label">Mapel 1</label>
+                        <input type="text" class="form-control" disabled id="dudi1">
+                    </div>
 
-                    <table class="table table-striped table-bordered ">
-                        <thead>
-                            <th>
-                                #
-                            </th>
+                    <div class="mb-3">
+                        <label for="nim" class="form-label">Mapel 2</label>
+                        <input type="text" class="form-control" disabled id="dudi2">
+                    </div>
 
-                            <th>
-                                Nama Dudi
-                            </th>
-                            <th>
-                                Alamat
-                            </th>
+                    <div class="mb-3">
+                        <label for="nim" class="form-label">Mapel 3</label>
+                        <input type="text" class="form-control" disabled id="dudi3">
+                    </div>
 
-                            <th>
-                                Foto
-                            </th>
-
-                            <th>
-                                Action
-                            </th>
-
-                        </thead>
-
-                        <tr>
-                            <td>
-                                1
-                            </td>
-
-                            <td>
-                                Teknopark
-                            </td>
-                            <td>
-                                Jl. Ontorejo 8 Serengan Serengan
-                            </td>
-
-                            <td>
-                                <img src="https://seeklogo.com/images/T/technopark-casablanca-logo-99DC554EBB-seeklogo.com.png"
-                                    style=" height: 100px; object-fit: cover" />
-                            </td>
-                            <td style="width: 150px">
-                                <button type="button" class="btn btn-success btn-sm" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Pilih</button>
-
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="#">Pilihan 1</a></li>
-                                    <li><a class="dropdown-item" href="#">Pilihan 2</a></li>
-                                    <li><a class="dropdown-item" href="#">Pilihan 3</a></li>
-                                </ul>
-                            </td>
-                        </tr>
-
-                    </table>
-
+                    <div class="mb-3">
+                        <label for="nim" class="form-label">Mapel 4</label>
+                        <input type="text" class="form-control" disabled id="dudi3">
+                    </div>
+                    <button type="button" class="btn btn " data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
             </div>
             <div class="col-4">
@@ -107,37 +76,11 @@
                     </div>
                 </div>
 
-                <div class="table-container">
 
-
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h5>Pilihan Dudi</h5>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="nim" class="form-label">Pilihan Dudi 1</label>
-                        <input type="text" class="form-control" disabled id="dudi1">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="nim" class="form-label">Pilihan Dudi 2</label>
-                        <input type="text" class="form-control" disabled id="dudi2">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="nim" class="form-label">Pilihan Dudi 3</label>
-                        <input type="text" class="form-control" disabled id="dudi3">
-                    </div>
-
-                </div>
             </div>
         </div>
 
-
-
         <div>
-
-
             <!-- Modal Tambah-->
             <div class="modal fade" id="tambahsiswa" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">

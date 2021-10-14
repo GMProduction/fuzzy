@@ -82,6 +82,19 @@ Route::get('/siswa/pembagiandudi', function () {
     return view('siswa.hasilperhitungan');
 });
 
+
+Route::get('/dudi', function () {
+    return view('dudi.dashboard');
+});
+
+Route::get('/dudi/nilai', function () {
+    return view('dudi.kebutuhannilai');
+});
+
+Route::get('/dudi/pembagiandudi', function () {
+    return view('dudi.hasilperhitungan');
+});
+
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout']);
 Route::post('/register-member', [AuthController::class, 'registerMember']);

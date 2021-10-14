@@ -40,19 +40,19 @@
     <div class="side-navbar active-nav d-flex justify-content-between  flex-wrap flex-column" id="sidebar">
         <ul class="nav flex-column text-white w-100 h-100">
             <a href="#" class="nav-link h5 text-white my-2">
-                Hi, Joko (Siswa)
+                Hi, Joko (Du/Di)
             </a>
 
 
 
-            <a href="/siswa/dudi" id="produk">
+            <a href="/dudi/nilai" id="produk">
                 <li href="#" class="nav-link t-white">
                     <i class="bx bxs-cube"></i>
-                    <span class="mx-2">Pilihan Dudi</span>
+                    <span class="mx-2">Kebutuhan Nilai</span>
                 </li>
             </a>
 
-            <a href="/siswa/pembagiandudi" id="produk">
+            <a href="/dudi/pembagiandudi" id="produk">
                 <li href="#" class="nav-link t-white">
                     <i class="bx bxs-cube"></i>
                     <span class="mx-2">Hasil Pembagian Dudi</span>
