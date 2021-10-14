@@ -44,39 +44,21 @@
             </a>
 
 
-       
-            <a href="/admin/siswa" id="kategori">
+
+            <a href="/siswa/dudi" id="produk">
                 <li href="#" class="nav-link t-white">
                     <i class="bx bxs-cube"></i>
-                    <span class="mx-2">Master Siswa</span>
+                    <span class="mx-2">Pilihan Dudi</span>
                 </li>
             </a>
 
-            <a href="/admin/mapel" id="kategori">
+            <a href="/siswa/pembagiandudi" id="produk">
                 <li href="#" class="nav-link t-white">
                     <i class="bx bxs-cube"></i>
-                    <span class="mx-2">Master Mapel</span>
-                </li>
-            </a>
-            <a href="/admin/dudi" id="produk">
-                <li href="#" class="nav-link t-white">
-                    <i class="bx bxs-cube"></i>
-                    <span class="mx-2">Master Tempat Dudi</span>
-                </li>
-            </a>
-            <a href="/admin/nilai" id="bank">
-                <li href="#" class="nav-link t-white">
-                    <i class="bx bxs-cube"></i>
-                    <span class="mx-2">Data Nilai</span>
+                    <span class="mx-2">Hasil Pembagian Dudi</span>
                 </li>
             </a>
 
-            <a href="/admin/perhitungan" id="baner">
-                <li href="#" class="nav-link t-white">
-                    <i class="bx bxs-cube"></i>
-                    <span class="mx-2">Perhitungan</span>
-                </li>
-            </a>
 
             <a href="/logout" class="mt-auto">
                 <li href="#" class="nav-link t-white">

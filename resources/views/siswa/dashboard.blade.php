@@ -1,7 +1,7 @@
-@extends('admin.base')
+@extends('siswa.base')
 
 @section('title')
-    Data Barang
+    Dashboard
 @endsection
 
 @section('content')
@@ -12,30 +12,12 @@
         </script>
     @endif
 
-    <section class="m-2">
+    {{-- <section class="m-2">
 
         <div class="table-container">
 
             <div class="d-flex">
-                <h5 class="mb-3">Pesanan</h5>
-
-                <div class="ms-auto">
-                    <div class="mb-3">
-                        <label for="kategori" class="form-label">Status Pembayaran</label>
-                        <div class="d-flex">
-                            <form id="formCari" action="/admin/pesanan">
-                                <select class="form-select" aria-label="Default select example" id="statusCari" name="status">
-                                    <option selected value="">Semua</option>
-                                    <option value="Menunggu Pembayaran">Menunggu Pembayaran</option>
-                                    <option value="Menunggu Konfirmasi">Menunggu Konfirmasi</option>
-                                    <option value="Diproses">Diproses</option>
-                                    <option value="Dikirim">Dikirim</option>
-                                    <option value="Selesai">Selesai</option>
-                                </select>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+                <h5 class="mb-3">Pesanan Baru</h5>
             </div>
 
             <table class="table table-striped table-bordered ">
@@ -69,9 +51,7 @@
                 @endforelse
 
             </table>
-            <div class="d-flex justify-content-end">
-                {{$data->links()}}
-            </div>
+
 
         </div>
 
@@ -189,7 +169,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
 @endsection
 

@@ -12,7 +12,7 @@
         </script>
     @endif
 
-    <section class="m-2">
+    {{-- <section class="m-2">
 
         <div class="table-container">
 
@@ -169,7 +169,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
 @endsection
 

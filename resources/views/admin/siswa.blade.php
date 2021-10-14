@@ -1,7 +1,7 @@
 @extends('admin.base')
 
 @section('title')
-    Data Barang
+    Data Siswa
 @endsection
 
 @section('content')
@@ -19,9 +19,9 @@
 
 
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h5>Data Barang</h5>
+                <h5>Data Siswa</h5>
                 <button type="button ms-auto" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                    data-bs-target="#tambahbarang">Tambah Data</button>
+                    data-bs-target="#tambahsiswa">Tambah Data</button>
             </div>
 
 
@@ -31,14 +31,21 @@
                         #
                     </th>
                     <th>
-                        nama Barang
+                        NIM
                     </th>
                     <th>
-                        Jumlah
+                        Nama Siswa
+                    </th>
+                    <th>
+                        Alamat
                     </th>
 
                     <th>
-                        Stock
+                        No. HP
+                    </th>
+
+                    <th>
+                        Foto
                     </th>
 
                     <th>
@@ -52,16 +59,24 @@
                         1
                     </td>
                     <td>
-                        Bola Kasti
+                        331545212
                     </td>
                     <td>
-                        8
+                        Joko
                     </td>
                     <td>
-                        5
+                        Jl. Ontorejo 8 Serengan Serengan
+                    </td>
                     <td>
+                        081257182
+                    </td>
+                    <td>
+                        <img src="https://cdn-2.tstatic.net/palembang/foto/berita/2011/11/10/AVRIL.JPG"
+                            style="width: 75px; height: 100px; object-fit: cover" />
+                    </td>
+                    <td style="width: 150px">
                         <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                            data-bs-target="#editbarang">Ubah</button>
+                            data-bs-target="#tambahsiswa">Ubah</button>
                         <button type="button" class="btn btn-danger btn-sm" onclick="hapus('id', 'nama') ">hapus</button>
                     </td>
                 </tr>
@@ -75,21 +90,43 @@
 
 
             <!-- Modal Tambah-->
-            <div class="modal fade" id="tambahbarang" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="tambahsiswa" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Tambah Barang</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <h5 class="modal-title" id="exampleModalLabel">Tambah Siswa</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <form>
                                 <div class="mb-3">
-                                    <label for="namabarang" class="form-label">Nama Barang</label>
-                                    <input type="email" class="form-control" id="namabarang">
+                                    <label for="nim" class="form-label">NIM</label>
+                                    <input type="text" class="form-control" required id="nim">
                                 </div>
 
                                 <div class="mb-3">
+                                    <label for="namasiswa" class="form-label">Nama Siswa</label>
+                                    <input type="text" required class="form-control" id="namasiswa">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="alamat">Alamat</label>
+                                    <textarea class="form-control" id="alamat" rows="3"></textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="nphp" class="form-label">no. Hp</label>
+                                    <input type="number" required class="form-control" id="nphp">
+                                </div>
+
+                                <div class="mt-3 mb-2">
+                                    <label for="foto" class="form-label">Foto</label>
+                                    <input class="form-control" type="file" id="foto">
+                                </div>
+
+                                {{-- <div class="mb-3">
                                     <label for="kategori" class="form-label">Kategori</label>
                                     <div class="d-flex">
                                         <select class="form-select" aria-label="Default select example" name="idguru">
@@ -100,18 +137,7 @@
                                         </select>
                                         <a class="btn btn-primary">+</a>
                                     </div>
-                                </div>
-
-                                <div class="mt-3 mb-2">
-                                    <label for="gambar" class="form-label">Gambar</label>
-                                    <input class="form-control" type="file" id="gambar">
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="jumlah" class="form-label">Jumlah</label>
-                                    <input type="number" class="form-control" id="jumlah">
-                                </div>
-
+                                </div> --}}
 
                                 <div class="mb-4"></div>
                                 <button type="submit" class="btn btn-primary">Simpan</button>
@@ -122,33 +148,6 @@
                 </div>
             </div>
 
-            <!-- Modal Edit-->
-            <div class="modal fade" id="editbarang" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Edit Barang</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                <div class="mb-3">
-                                    <label for="namaeditbarang" class="form-label">Nama Barang</label>
-                                    <input type="email" class="form-control" id="namaeditbarang">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="jumlahedit" class="form-label">Jumlah</label>
-                                    <input type="number" class="form-control" id="jumlahedit">
-                                </div>
-
-                                <div class="mb-4"></div>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
-                            </form>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
         </div>
 
     </section>
