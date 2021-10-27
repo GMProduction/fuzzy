@@ -27,52 +27,36 @@
 
             <table class="table table-striped table-bordered ">
                 <thead>
-                    <th>
-                        #
-                    </th>
-
-                    <th>
-                        NIM
-                    </th>
-
-                    <th>
-                        Nama Siswa
-                    </th>
-
-                    <th>
-                        Nilai Rata2
-                    </th>
-
-
-
-                    <th>
-                        Action
-                    </th>
-
+                <tr>
+                    <th>#</th>
+                    <th>NIM</th>
+                    <th>Nama Siswa</th>
+                    <th>Nilai Rata2</th>
+                    <th>Action</th>
+                </tr>
                 </thead>
 
-                <tr>
-                    <td>
-                        1
-                    </td>
-                    <td>
-                        331545212
-                    </td>
-                    <td>
-                        Joko
-                    </td>
-                    <td>
-                        70.8
-                    </td>
-
-                    <td style="width: 150px">
-                        <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                            data-bs-target="#tambahsiswa">Beri Nilai</button>
-                    </td>
-                </tr>
+                @forelse($data as $key => $d)
+                    <tr>
+                        <td>{{$data->firstItem() + $key}}</td>
+                        <td>{{$d->siswa->nim}}</td>
+                        <td>{{$d->siswa->nama}}</td>
+                        <td>{{$d->avg ?? 0}}</td>
+                        <td style="width: 150px">
+                            <button type="button" class="btn btn-success btn-sm" data-id="{{$d->id}}" id="editData">Beri Nilai
+                            </button>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="4" class="text-center">Tidak ada data</td>
+                    </tr>
+                @endforelse
 
             </table>
-
+            <div class="d-flex justify-content-end">
+                {{$data->links()}}
+            </div>
         </div>
 
 
@@ -80,51 +64,20 @@
 
 
             <!-- Modal Tambah-->
-            <div class="modal fade" id="tambahsiswa" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
+            <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Tambah Siswa</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Penilaian</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
+                                    aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form>
-                                <div class="mb-3">
-                                    <label for="mapel1" class="form-label">Mapel 1</label>
-                                    <input type="number" class="form-control" id="mapel1">
+                            <form id="form" onsubmit="return save()">
+                                @csrf
+                                <div id="formInput">
                                 </div>
-
-                                <div class="mb-3">
-                                    <label for="mapel1" class="form-label">Mapel 2</label>
-                                    <input type="number" class="form-control" id="mapel1">
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="mapel1" class="form-label">Mapel 3</label>
-                                    <input type="number" class="form-control" id="mapel1">
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="mapel1" class="form-label">Mapel 4</label>
-                                    <input type="number" class="form-control" id="mapel1">
-                                </div>
-
-
-                                {{-- <div class="mb-3">
-                                    <label for="kategori" class="form-label">Kategori</label>
-                                    <div class="d-flex">
-                                        <select class="form-select" aria-label="Default select example" name="idguru">
-                                            <option selected>Mata Pelajaran</option>
-                                            <option value="1">Erfin</option>
-                                            <option value="2">Joko A</option>
-                                            <option value="3">Joko B</option>
-                                        </select>
-                                        <a class="btn btn-primary">+</a>
-                                    </div>
-                                </div> --}}
-
                                 <div class="mb-4"></div>
                                 <button type="submit" class="btn btn-primary">Simpan</button>
                             </form>
@@ -142,18 +95,57 @@
 
 @section('script')
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
 
         })
 
+        $(document).on('click', '#editData', function () {
+            getPenilaian($(this).data('id'))
+            $('#modal').modal('show')
+        })
+
+        function getPenilaian(id) {
+            fetch('{{route('getAllMapel')}}')
+            .then(response => response.json())
+            .then(data => {
+                var form = $('#formInput');
+                form.empty();
+                $.each(data, function (key, value) {
+                    form.append(' <div id="mapel'+value['id']+'" class="mb-3">\n' +
+                        '                                    <label for="mapel1" class="form-label" id="'+value['id']+'">'+value['nama']+' :</label>\n' +
+                        '                                </div>')
+                    fetch('/admin/nilai/by-siswa-mapel?user='+id+'&mapel='+value['id'])
+                        .then(res => res.json())
+                        .then(dat => {
+                            var nilai = dat[0] ? dat[0]['nilai'] : '0';
+                            $('#mapel'+value['id']).append('' +
+                                '<input type="hidden" class="form-control" id="id" name="user['+key+']" value="'+id+'">\n' +
+                                '<input type="hidden" class="form-control" id="id" name="mapel['+key+']" value="'+value['id']+'">\n' +
+                                '               <input type="text" class="form-control" name="nilai['+key+']" value="'+nilai+'">');
+                        })
+                })
+
+
+            })
+        }
+
+        function save() {
+            saveData('Simpan data','form',null,after)
+            return false
+
+        }
+        function after() {
+
+        }
+
         function hapus(id, name) {
             swal({
-                    title: "Menghapus data?",
-                    text: "Apa kamu yakin, ingin menghapus data ?!",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
+                title: "Menghapus data?",
+                text: "Apa kamu yakin, ingin menghapus data ?!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
                 .then((willDelete) => {
                     if (willDelete) {
                         swal("Berhasil Menghapus data!", {

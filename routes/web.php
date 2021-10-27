@@ -1,26 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admin\BanerController;
-use App\Http\Controllers\Admin\BankController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\KategoriController;
-use App\Http\Controllers\Admin\LaporanController;
-use App\Http\Controllers\Admin\MemberController;
-use App\Http\Controllers\Admin\PesananController;
-use App\Http\Controllers\Admin\ProdukController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\BarangController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\RajaOngkirController;
-use App\Http\Controllers\User\DikemasController;
-use App\Http\Controllers\User\KeranjangController;
-use App\Http\Controllers\User\MenungguController;
-use App\Http\Controllers\User\PembayaranController;
-use App\Http\Controllers\User\PengirimanController;
-use App\Http\Controllers\User\ProfileController;
-use App\Http\Controllers\User\SelesaiController;
-use App\Http\Middleware\AdminMiddleware;
-use App\Http\Middleware\UserMiddleware;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,64 +18,75 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/admin', function () {
-    return view('admin');
+Route::prefix('/admin')->group(function (){
+    Route::get('/admin', function () {
+        return view('admin');
+    });
+
+    Route::match(['post','get'],'/siswa', [\App\Http\Controllers\Admin\SiswaController::class,'index']);
+    Route::match(['post','get'],'/dudi', [\App\Http\Controllers\Admin\DudiController::class,'index']);
+
+    Route::prefix('mapel')->group(function (){
+        Route::match(['post','get'],'/',[\App\Http\Controllers\Admin\MapelController::class,'index']);
+        Route::get('all', [\App\Http\Controllers\Admin\MapelController::class, 'getAll'])->name('getAllMapel');
+    });
+
+   Route::prefix('nilai')->group(function (){
+       Route::match(['post','get'],'/',[\App\Http\Controllers\Admin\NilaiController::class,'index']);
+       Route::get('/by-siswa-mapel', [\App\Http\Controllers\Admin\NilaiController::class, 'BySiswa'])->name('getAllBySiswa');
+   });
 });
+
+
 
 Route::get('/admin', function () {
     return view('admin.dashboard');
 });
 
-Route::get('/admin/siswa', function () {
-    return view('admin.siswa');
-});
 
-Route::get('/admin/mapel', function () {
-    return view('admin.mapel');
-});
 
-Route::get('/admin/dudi', function () {
-    return view('admin.dudi');
-});
-Route::get('/admin/nilai', function () {
-    return view('admin.nilai');
-});
+
 
 Route::get('/admin/perhitungan', function () {
     return view('admin.perhitungan');
 });
+
+
 Route::get('/tentang-kami', function () {
     return view('tentang');
 });
 
 
+Route::prefix('/siswa')->group(function (){
+    Route::get('/', function () {
+        return view('siswa.dashboard');
+    });
 
-Route::get('/siswa', function () {
-    return view('siswa.dashboard');
+    Route::get('dudi', [\App\Http\Controllers\Siswa\ProfileController::class,'index']);
 });
 
-Route::get('/siswa/dudi', function () {
-    return view('siswa.dudi');
+
+Route::prefix('/dudi')->group(function (){
+
+    Route::get('/', function () {
+        return view('dudi.dashboard');
+    });
+
+    Route::match(['GET','POST'],'nilai', [\App\Http\Controllers\Dudi\KebutuhanController::class,'index']);
+
+    Route::get('/pembagiandudi', function () {
+        return view('dudi.hasilperhitungan');
+    });
 });
+
 
 Route::get('/siswa/pembagiandudi', function () {
     return view('siswa.hasilperhitungan');
 });
 
 
-Route::get('/dudi', function () {
-    return view('dudi.dashboard');
-});
 
-Route::get('/dudi/nilai', function () {
-    return view('dudi.kebutuhannilai');
-});
-
-Route::get('/dudi/pembagiandudi', function () {
-    return view('dudi.hasilperhitungan');
-});
-
-Route::post('/login', [AuthController::class, 'login']);
+Route::match(['POST','GET'],'/login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout']);
 Route::post('/register-member', [AuthController::class, 'registerMember']);
 

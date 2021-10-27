@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Mapel extends Model
 {
@@ -14,4 +15,8 @@ class Mapel extends Model
         'nama',
         'alias',
     ];
+
+    public function kebutuhan(){
+        return $this->hasOne(KebutuhanNilai::class,'id_mapel')->where('id_dudi','=', Auth::id());
+    }
 }

@@ -50,4 +50,9 @@ class User extends Authenticatable
     public function dudi(){
         return $this->hasOne(TempatDudi::class,'id_user');
     }
+
+    public function nilai(){
+        return $this->hasMany(Nilai::class, 'id_user');
+    }
+
 }

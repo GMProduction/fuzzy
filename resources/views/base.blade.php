@@ -43,7 +43,7 @@
                                 <a style="position: relative;" href="/{{ auth()->user()->roles }}/keranjang">
                                     <i id="iconCart" class='bx bx-cart-alt profile-userpic me-3'
                                         style="font-size: 1.7rem; position: relative;">
-    
+
                                     </i>
                                 </a>
                             @endif
@@ -58,11 +58,11 @@
                                     <a href="/logout" class="dropdown-item" style="width: unset">Logout</a>
                                 </div>
                             </div>
-    
+
                         @else
                             <a href="#!" id="loginButton" class="btn btn-outline-primary btn-sm">Login</a>
                         @endif
-    
+
                     </div>
 
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -70,10 +70,10 @@
                         aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    
+
                 </div>
 
-                
+
             </div>
         </nav>
 
@@ -95,7 +95,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="" id=" formLogin" onsubmit="return Login()" method="post">
+                    <form class="" id="formLogin" onsubmit="return Login()" method="post">
                         @csrf
                         <div class="form-group mb-2">
                             <label for="username">Username</label>

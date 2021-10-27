@@ -20,69 +20,48 @@
 
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h5>Data Siswa</h5>
-                <button type="button ms-auto" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                    data-bs-target="#tambahsiswa">Tambah Data</button>
+                <button type="button ms-auto" class="btn btn-primary btn-sm" id="addData">Tambah Data
+                </button>
             </div>
 
 
             <table class="table table-striped table-bordered ">
                 <thead>
-                    <th>
-                        #
-                    </th>
-                    <th>
-                        NIM
-                    </th>
-                    <th>
-                        Nama Siswa
-                    </th>
-                    <th>
-                        Alamat
-                    </th>
-
-                    <th>
-                        No. HP
-                    </th>
-
-                    <th>
-                        Foto
-                    </th>
-
-                    <th>
-                        Action
-                    </th>
-
+                <th>#</th>
+                <th>NIM</th>
+                <th>Nama Siswa</th>
+                <th>Alamat</th>
+                <th>No. HP</th>
+                <th>Foto</th>
+                <th>Action</th>
                 </thead>
-
-                <tr>
-                    <td>
-                        1
-                    </td>
-                    <td>
-                        331545212
-                    </td>
-                    <td>
-                        Joko
-                    </td>
-                    <td>
-                        Jl. Ontorejo 8 Serengan Serengan
-                    </td>
-                    <td>
-                        081257182
-                    </td>
-                    <td>
-                        <img src="https://cdn-2.tstatic.net/palembang/foto/berita/2011/11/10/AVRIL.JPG"
-                            style="width: 75px; height: 100px; object-fit: cover" />
-                    </td>
-                    <td style="width: 150px">
-                        <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                            data-bs-target="#tambahsiswa">Ubah</button>
-                        <button type="button" class="btn btn-danger btn-sm" onclick="hapus('id', 'nama') ">hapus</button>
-                    </td>
-                </tr>
+                @forelse($data as $key => $d)
+                    <tr>
+                        <td> {{$data->firstItem() + $key}}</td>
+                        <td>{{$d->username}}</td>
+                        <td>{{$d->siswa->nama}}</td>
+                        <td>{{$d->siswa->alamat}}</td>
+                        <td>{{$d->siswa->hp}}</td>
+                        <td class="text-center">
+                            <img src="{{asset($d->siswa->foto)}}" onerror="this.onerror=null; this.src='{{asset('/images/nouser.png')}}' "
+                                 style="width: 75px; height: 100px; object-fit: cover"/>
+                        </td>
+                        <td style="width: 150px">
+                            <a type="button" class="btn btn-success btn-sm" id="editData" data-hp="{{$d->siswa->hp}}" data-alamat="{{$d->siswa->alamat}}" data-nama="{{$d->siswa->nama}}" data-id="{{$d->id}}" data-user="{{$d->username}}">Ubah
+                            </a>
+                            <button type="button" class="btn btn-danger btn-sm" onclick="hapus('id', 'nama') ">hapus</button>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="7" class="text-center">Tidak ada data</td>
+                    </tr>
+                @endforelse
 
             </table>
-
+            <div class="d-flex justify-content-end">
+                {{$data->links()}}
+            </div>
         </div>
 
 
@@ -91,40 +70,42 @@
 
             <!-- Modal Tambah-->
             <div class="modal fade" id="tambahsiswa" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
+                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Tambah Siswa</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
+                                    aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form>
+                            <form id="form" enctype="multipart/form-data" onsubmit="return save()">
+                                @csrf
+                                <input type="hidden" id="id" name="id">
                                 <div class="mb-3">
                                     <label for="nim" class="form-label">NIM</label>
-                                    <input type="text" class="form-control" required id="nim">
+                                    <input type="text" class="form-control" required id="username" name="username">
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="namasiswa" class="form-label">Nama Siswa</label>
-                                    <input type="text" required class="form-control" id="namasiswa">
+                                    <input type="text" required class="form-control" id="nama" name="nama">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="alamat">Alamat</label>
-                                    <textarea class="form-control" id="alamat" rows="3"></textarea>
+                                    <textarea class="form-control" id="alamat" rows="3" name="alamat"></textarea>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="nphp" class="form-label">no. Hp</label>
-                                    <input type="number" required class="form-control" id="nphp">
+                                    <input type="number" required class="form-control" id="hp" name="hp">
                                 </div>
 
-                                <div class="mt-3 mb-2">
-                                    <label for="foto" class="form-label">Foto</label>
-                                    <input class="form-control" type="file" id="foto">
-                                </div>
+{{--                                <div class="mt-3 mb-2">--}}
+{{--                                    <label for="foto" class="form-label">Foto</label>--}}
+{{--                                    <input class="form-control" type="file" id="foto" name="foto">--}}
+{{--                                </div>--}}
 
                                 {{-- <div class="mb-3">
                                     <label for="kategori" class="form-label">Kategori</label>
@@ -156,18 +137,33 @@
 
 @section('script')
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
 
         })
 
+        $(document).on('click','#editData, #addData', function () {
+            $('#tambahsiswa #id').val($(this).data('id'))
+            $('#tambahsiswa #alamat').val($(this).data('alamat'))
+            $('#tambahsiswa #hp').val($(this).data('hp'))
+            $('#tambahsiswa #nama').val($(this).data('nama'))
+            $('#tambahsiswa #username').val($(this).data('user'))
+            $('#tambahsiswa').modal('show')
+        })
+
+        function save() {
+            saveData('Simpan data', 'form')
+            return false;
+        }
+
+
         function hapus(id, name) {
             swal({
-                    title: "Menghapus data?",
-                    text: "Apa kamu yakin, ingin menghapus data ?!",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
+                title: "Menghapus data?",
+                text: "Apa kamu yakin, ingin menghapus data ?!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
                 .then((willDelete) => {
                     if (willDelete) {
                         swal("Berhasil Menghapus data!", {

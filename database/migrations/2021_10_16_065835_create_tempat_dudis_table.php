@@ -19,7 +19,7 @@ class CreateTempatDudisTable extends Migration
             $table->foreign('id_user')->references('id')->on('tb_user');
             $table->string('nama');
             $table->text('alamat');
-            $table->text('foto');
+            $table->text('foto')->nullable(true)->default(null);
             $table->timestamps();
         });
     }

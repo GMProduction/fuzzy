@@ -27,39 +27,19 @@
 
                     <table class="table table-striped table-bordered ">
                         <thead>
-                            <th>
-                                #
-                            </th>
-
-                            <th>
-                                Nama Dudi
-                            </th>
-                            <th>
-                                Alamat
-                            </th>
-
-                            <th>
-                                Foto
-                            </th>
-
-                            <th>
-                                Action
-                            </th>
-
+                            <tr>
+                                <th>#</th>
+                                <th>Nama Dudi</th>
+                                <th>Alamat</th>
+                                <th>Foto</th>
+                                <th>Action</th>
+                            </tr>
                         </thead>
 
                         <tr>
-                            <td>
-                                1
-                            </td>
-
-                            <td>
-                                Teknopark
-                            </td>
-                            <td>
-                                Jl. Ontorejo 8 Serengan Serengan
-                            </td>
-
+                            <td>1</td>
+                            <td>Teknopark</td>
+                            <td>Jl. Ontorejo 8 Serengan Serengan</td>
                             <td>
                                 <img src="https://seeklogo.com/images/T/technopark-casablanca-logo-99DC554EBB-seeklogo.com.png"
                                     style=" height: 100px; object-fit: cover" />
@@ -74,7 +54,6 @@
                                 </ul>
                             </td>
                         </tr>
-
                     </table>
 
                 </div>
@@ -93,17 +72,17 @@
 
                     <div class="mb-3">
                         <label for="nim" class="form-label">NIM</label>
-                        <input type="text" class="form-control" disabled id="nim">
+                        <input type="text" class="form-control" disabled id="nim" value="{{$data->siswa->nim}}">
                     </div>
 
                     <div class="mb-3">
                         <label for="nim" class="form-label">Nama</label>
-                        <input type="text" class="form-control" disabled id="nama">
+                        <input type="text" class="form-control" disabled id="nama" value="{{$data->siswa->nama}}">
                     </div>
 
                     <div class="mb-3">
                         <label for="nim" class="form-label">Alamat</label>
-                        <input type="text" class="form-control" disabled id="alamat">
+                        <input type="text" class="form-control" disabled id="alamat" value="{{$data->siswa->alamat}}">
                     </div>
                 </div>
 

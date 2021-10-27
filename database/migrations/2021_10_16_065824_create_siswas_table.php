@@ -20,7 +20,7 @@ class CreateSiswasTable extends Migration
             $table->string('nama');
             $table->text('alamat');
             $table->string('hp',13);
-            $table->text('foto');
+            $table->text('foto')->nullable(true)->default(null);
             $table->string('nim');
             $table->timestamps();
         });

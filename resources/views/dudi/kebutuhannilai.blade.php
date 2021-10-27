@@ -25,27 +25,18 @@
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h5>Kebutuhan Nilai</h5>
                     </div>
+                    <form method="POST" id="form" onsubmit="return save()">
+                        @csrf
+                        @foreach($mapel as $d)
+                            <div class="mb-3">
+                                <label for="nim" class="form-label">{{$d->nama}} :</label>
+                                <input name="mapel[]" hidden value="{{$d->id}}">
+                                <input type="text" class="form-control" id="dudi1" name="nilai[]" value="{{$d->kebutuhan ? $d->kebutuhan->nilai : '0'}}">
+                            </div>
+                        @endforeach
 
-                    <div class="mb-3">
-                        <label for="nim" class="form-label">Mapel 1</label>
-                        <input type="text" class="form-control" disabled id="dudi1">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="nim" class="form-label">Mapel 2</label>
-                        <input type="text" class="form-control" disabled id="dudi2">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="nim" class="form-label">Mapel 3</label>
-                        <input type="text" class="form-control" disabled id="dudi3">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="nim" class="form-label">Mapel 4</label>
-                        <input type="text" class="form-control" disabled id="dudi3">
-                    </div>
-                    <button type="button" class="btn btn " data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="submit" class="btn btn-success">Simpan</button>
+                    </form>
                 </div>
             </div>
             <div class="col-4">
@@ -58,21 +49,21 @@
 
 
                     <img src="https://img.tek.id/img/content/2019/10/04/21135/begini-gambaran-proses-syuting-avatar-2-OUv6EI6mLH.jpg"
-                        style="width: 100px; height: 100px; border-radius: 100px; object-fit: cover; margin-left: auto; margin-right: auto; display: flex; justify-content: center" />
+                         style="width: 100px; height: 100px; border-radius: 100px; object-fit: cover; margin-left: auto; margin-right: auto; display: flex; justify-content: center"/>
 
                     <div class="mb-3">
-                        <label for="nim" class="form-label">NIM</label>
-                        <input type="text" class="form-control" disabled id="nim">
+                        <label for="nim" class="form-label">Email</label>
+                        <input type="text" class="form-control" disabled id="nim" value="{{$data->username}}">
                     </div>
 
                     <div class="mb-3">
                         <label for="nim" class="form-label">Nama</label>
-                        <input type="text" class="form-control" disabled id="nama">
+                        <input type="text" class="form-control" disabled id="nama" value="{{$data->dudi->nama}}">
                     </div>
 
                     <div class="mb-3">
                         <label for="nim" class="form-label">Alamat</label>
-                        <input type="text" class="form-control" disabled id="alamat">
+                        <input type="text" class="form-control" disabled id="alamat" value="{{$data->dudi->alamat}}">
                     </div>
                 </div>
 
@@ -83,18 +74,16 @@
         <div>
             <!-- Modal Tambah-->
             <div class="modal fade" id="tambahsiswa" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
+                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Tambah Siswa</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
+                                    aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <form>
-
-
                                 <div class="mb-3">
                                     <label for="namadudi" class="form-label">Nama Dudi</label>
                                     <input type="text" required class="form-control" id="namadudi">
@@ -141,18 +130,27 @@
 
 @section('script')
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
 
         })
 
+        function save() {
+            saveData('Simpan Data', 'form', null, after)
+            return false;
+        }
+
+        function after() {
+
+        }
+
         function hapus(id, name) {
             swal({
-                    title: "Menghapus data?",
-                    text: "Apa kamu yakin, ingin menghapus data ?!",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
+                title: "Menghapus data?",
+                text: "Apa kamu yakin, ingin menghapus data ?!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
                 .then((willDelete) => {
                     if (willDelete) {
                         swal("Berhasil Menghapus data!", {
