@@ -84,7 +84,7 @@ Route::get('/siswa/pembagiandudi', function () {
     return view('siswa.hasilperhitungan');
 });
 
-
+Route::get('/cek-nilai', [\App\Http\Controllers\Nilai\NilaiController::class, 'nilai']);
 
 Route::match(['POST','GET'],'/login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout']);

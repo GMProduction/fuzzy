@@ -55,4 +55,8 @@ class User extends Authenticatable
         return $this->hasMany(Nilai::class, 'id_user');
     }
 
+    public function pilihanmagang()
+    {
+        return $this->hasMany(PilihanMagang::class, 'id_user');
+    }
 }

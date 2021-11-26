@@ -14,6 +14,16 @@ class CustomController extends Controller
 
     protected $validationMessage = [];
 
+    /** @var Request $request */
+    protected $request;
+
+    /**
+     * CustomController constructor.
+     */
+    public function __construct()
+    {
+        $this->request = Request::createFromGlobals();
+    }
 
     public function checkValidation(Request $request)
     {
@@ -71,5 +81,23 @@ class CustomController extends Controller
         return $this;
     }
 
+    public function postField($key)
+    {
+        return $this->request->request->get($key);
+    }
+
+    public function field($key)
+    {
+        return $this->request->query->get($key);
+    }
+
+    public function jsonResponse($msg = '', $status = 200, $data = null)
+    {
+        return response()->json([
+            'status' => $status,
+            'message' => $msg,
+            'payload' => $data
+        ], $status);
+    }
 
 }

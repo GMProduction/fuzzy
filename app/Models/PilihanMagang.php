@@ -16,4 +16,8 @@ class PilihanMagang extends Model
         'urutan',
     ];
 
+    public function dudi()
+    {
+        return $this->belongsTo(User::class, 'id_dudi');
+    }
 }
