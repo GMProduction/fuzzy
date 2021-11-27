@@ -85,6 +85,8 @@ Route::get('/siswa/pembagiandudi', function () {
 });
 
 Route::get('/cek-nilai', [\App\Http\Controllers\Nilai\NilaiController::class, 'nilai']);
+Route::get('/cek-rules', [\App\Http\Controllers\Nilai\NilaiController::class, 'rules']);
+Route::get('/cek-nilai-siswa', [\App\Http\Controllers\Nilai\NilaiController::class, 'nilaiSiswa']);
 
 Route::match(['POST','GET'],'/login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout']);

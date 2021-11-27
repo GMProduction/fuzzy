@@ -20,4 +20,9 @@ class PilihanMagang extends Model
     {
         return $this->belongsTo(User::class, 'id_dudi');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_user');
+    }
 }
