@@ -29,6 +29,8 @@ Route::prefix('/admin')->group(function (){
     Route::prefix('mapel')->group(function (){
         Route::match(['post','get'],'/',[\App\Http\Controllers\Admin\MapelController::class,'index']);
         Route::get('all', [\App\Http\Controllers\Admin\MapelController::class, 'getAll'])->name('getAllMapel');
+        Route::get('indicator/{id}', [\App\Http\Controllers\Admin\MapelController::class, 'getIndicator'])->name('getIndicatorMapel');
+        Route::post('indicator/{id}/create', [\App\Http\Controllers\Admin\MapelController::class, 'storeIndicator'])->name('storeIndicator');
     });
 
    Route::prefix('nilai')->group(function (){

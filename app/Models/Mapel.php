@@ -19,4 +19,9 @@ class Mapel extends Model
     public function kebutuhan(){
         return $this->hasOne(KebutuhanNilai::class,'id_mapel')->where('id_dudi','=', Auth::id());
     }
+
+    public function indicator()
+    {
+        return $this->hasMany(MapelIndicator::class , 'id_mapel');
+    }
 }

@@ -216,6 +216,23 @@ class NilaiController extends CustomController
                         $tmpLuas['nilai'] = $avaSub['score'];
                         array_push($defuzzifikasi, $tmpLuas);
                     }
+                }else if($indexRule === 'rendah') {
+                    foreach ($availableSubjects as $avaSub) {
+                        $subject_limit  = MapelIndicator::where('id_mapel', $avaSub['id'])
+                            ->where('indikator', $indexRule)
+                            ->first();
+                        $bawah = $subject_limit->bawah;
+                        $tengah = $subject_limit->tengah;
+                        $atas = $subject_limit->atas;
+                        $scoreRule = $avaSub['score_index'][0];
+
+                        //segitga
+                        $L1 = ($atas - $tengah) * $scoreRule / 2;
+                        $L2 = ($tengah - $bawah) * $scoreRule;
+                        $tmpLuas['luas'] = [$L1, $L2];
+                        $tmpLuas['nilai'] = $avaSub['score'];
+                        array_push($defuzzifikasi, $tmpLuas);
+                    }
                 }
                 $tmpInterest['defuzzifikasi'] = $defuzzifikasi;
                 $summary_score = 0;
