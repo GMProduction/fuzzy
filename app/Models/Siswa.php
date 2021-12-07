@@ -19,4 +19,9 @@ class Siswa extends Model
         'nim',
     ];
 
+//    public function magang()
+//    {
+//        return $this->hasMany(PilihanMagang::class, 'id_user')
+//    }
+
 }

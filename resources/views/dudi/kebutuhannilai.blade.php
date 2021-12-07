@@ -24,6 +24,9 @@
 
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h5>Kebutuhan Nilai</h5>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalRule">
+                            Buat Peraturan Penilaian
+                        </button>
                     </div>
                     <form method="POST" id="form" onsubmit="return save()">
                         @csrf
@@ -31,7 +34,8 @@
                             <div class="mb-3">
                                 <label for="nim" class="form-label">{{$d->nama}} :</label>
                                 <input name="mapel[]" hidden value="{{$d->id}}">
-                                <input type="text" class="form-control" id="dudi1" name="nilai[]" value="{{$d->kebutuhan ? $d->kebutuhan->nilai : '0'}}">
+                                <input type="text" class="form-control" id="dudi1" name="nilai[]"
+                                       value="{{$d->kebutuhan ? $d->kebutuhan->nilai : '0'}}">
                             </div>
                         @endforeach
 
@@ -48,8 +52,9 @@
                     </div>
 
 
-                    <img src="https://img.tek.id/img/content/2019/10/04/21135/begini-gambaran-proses-syuting-avatar-2-OUv6EI6mLH.jpg"
-                         style="width: 100px; height: 100px; border-radius: 100px; object-fit: cover; margin-left: auto; margin-right: auto; display: flex; justify-content: center"/>
+                    <img
+                        src="https://img.tek.id/img/content/2019/10/04/21135/begini-gambaran-proses-syuting-avatar-2-OUv6EI6mLH.jpg"
+                        style="width: 100px; height: 100px; border-radius: 100px; object-fit: cover; margin-left: auto; margin-right: auto; display: flex; justify-content: center"/>
 
                     <div class="mb-3">
                         <label for="nim" class="form-label">Email</label>
@@ -70,9 +75,7 @@
 
             </div>
         </div>
-
         <div>
-            <!-- Modal Tambah-->
             <div class="modal fade" id="tambahsiswa" tabindex="-1" aria-labelledby="exampleModalLabel"
                  aria-hidden="true">
                 <div class="modal-dialog">
@@ -121,18 +124,73 @@
                     </div>
                 </div>
             </div>
-
         </div>
 
+        <div class="modal fade" id="modalRule" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        @foreach($mapel as $v)
+                            <div class="form-check">
+                                <input class="form-check-input maple-check" type="checkbox" value="{{ $v->id }}" id="mapel" name="mapel">
+                                <label class="form-check-label" for="mapel">
+                                    {{ $v->nama }}
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
 @endsection
 
 @section('script')
     <script>
-        $(document).ready(function () {
 
-        })
+        function elRule()
+        {
+            // let value = $('input[name=mapel]:checked').val();
+            let value = $("input:checkbox:checked").map(function(){
+                return $(this).val();
+            }).get(); // <----
+
+            let combos = [];
+            let indicator = ['rendah', 'cukup', 'tinggi'];
+            let val_length = value.length;
+            let indicator_length = indicator.length;
+            console.log(Math.pow(3, 0));
+
+            let combos2 = [];
+            for (let v = 0; v < val_length; v++) {
+                combos2.push(Math.pow(indicator_length, v));
+            }
+            // for ( let i=0; i < value.length; i++){
+            //     for (let j=0; j < indicator.length; j++) {
+            //         combos.push(value[i] + indicator[j])
+            //     }
+            // }
+            // console.log(combos);
+            console.log(combos2);
+        }
+        $(document).ready(function () {
+            $('.btn-rules').on('click', function () {
+                $('#exampleModal').modal('show');
+            })
+
+            $('.maple-check').on('click', function () {
+                elRule();
+            })
+        });
 
         function save() {
             saveData('Simpan Data', 'form', null, after)

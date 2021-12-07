@@ -49,9 +49,7 @@ Route::get('/admin', function () {
 
 
 
-Route::get('/admin/perhitungan', function () {
-    return view('admin.perhitungan');
-});
+Route::get('/admin/perhitungan', [\App\Http\Controllers\Nilai\NilaiController::class, 'perhitungan']);
 
 
 Route::get('/tentang-kami', function () {

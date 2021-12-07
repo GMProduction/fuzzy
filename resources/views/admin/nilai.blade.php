@@ -97,7 +97,7 @@
     <script>
         $(document).ready(function () {
 
-        })
+        });
 
         $(document).on('click', '#editData', function () {
             getPenilaian($(this).data('id'))
