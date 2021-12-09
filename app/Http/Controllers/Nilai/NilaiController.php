@@ -72,7 +72,7 @@ class NilaiController extends CustomController
                 ->where('id_user', $siswa_id)->get([
                     'nilai', 'id_mapel', 'id_user'
                 ]);
-
+            
 
 
             $tmpScores = [];
@@ -93,7 +93,7 @@ class NilaiController extends CustomController
                 $id = $value->dudi->dudi->id;
                 $tmpInterest['id'] = $value->dudi->dudi->id;
                 $tmpInterest['nama'] = $value->dudi->dudi->nama;
-
+                $tmpInterest['urutan'] = $value->urutan;
                 $tmpAvailableSubjects = RulesIndicator::with(['mapel:id,nama', 'rules:id,dudi_id'])
                     ->whereHas('rules', function ($q) use ($id) {
                         $q->where('dudi_id', '=', $id);

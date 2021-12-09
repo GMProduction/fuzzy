@@ -24,7 +24,8 @@
 
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h5>Kebutuhan Nilai</h5>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalRule">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#modalRule">
                             Buat Peraturan Penilaian
                         </button>
                     </div>
@@ -127,7 +128,7 @@
         </div>
 
         <div class="modal fade" id="modalRule" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
@@ -136,16 +137,25 @@
                     <div class="modal-body">
                         @foreach($mapel as $v)
                             <div class="form-check">
-                                <input class="form-check-input maple-check" type="checkbox" value="{{ $v->id }}" id="mapel" name="mapel">
+                                <input class="form-check-input maple-check" type="checkbox" data-nama="{{ $v->nama }}"
+                                       value="{{ $v->id }}"
+                                       id="mapel" name="mapel">
                                 <label class="form-check-label" for="mapel">
                                     {{ $v->nama }}
                                 </label>
                             </div>
                         @endforeach
+                        <form action="/dudi/nilai/rule" method="post" id="form-rule">
+                            @csrf
+                            <div id="combos_rule">
+
+                            </div>
+                        </form>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="submit" class="btn btn-primary" form="form-rule">Save changes</button>
                     </div>
                 </div>
             </div>
@@ -157,35 +167,93 @@
 @section('script')
     <script>
 
-        function elRule()
-        {
+        function elRule() {
             // let value = $('input[name=mapel]:checked').val();
-            let value = $("input:checkbox:checked").map(function(){
+            let value = $("input:checkbox:checked").map(function () {
                 return $(this).val();
             }).get(); // <----
 
+            let nama = $("input:checkbox:checked").map(function () {
+                return $(this).data('nama');
+            }).get();
             let combos = [];
             let indicator = ['rendah', 'cukup', 'tinggi'];
             let val_length = value.length;
             let indicator_length = indicator.length;
-            console.log(Math.pow(3, 0));
+            let combosLength = Math.pow(indicator_length, val_length);
 
             let combos2 = [];
             for (let v = 0; v < val_length; v++) {
                 combos2.push(Math.pow(indicator_length, v));
             }
-            // for ( let i=0; i < value.length; i++){
-            //     for (let j=0; j < indicator.length; j++) {
-            //         combos.push(value[i] + indicator[j])
-            //     }
-            // }
-            // console.log(combos);
-            console.log(combos2);
+
+            let combos2revert = [];
+            for (let c = combos2.length; c > 0; c--) {
+                combos2revert.push(combos2[c - 1]);
+            }
+
+            let tempResult = [];
+            $.each(combos2revert, function (k, v) {
+                let tempArray = [];
+                for (let j = 0; j < combos2[k]; j++) {
+                    $.each(indicator, function (k2, v2) {
+                        for (let i = 0; i < v; i++) {
+                            tempArray.push(v2);
+                        }
+                    });
+                }
+                tempResult.push(tempArray);
+            });
+
+            let result = [];
+            for (let z = 0; z < combosLength; z++) {
+                let tmp = [];
+                for (let x = 0; x < tempResult.length; x++) {
+                    let obj = {};
+                    obj['id'] = value[x];
+                    obj['nama'] = nama[x];
+                    obj['value'] = tempResult[x][z];
+                    tmp.push(obj);
+                }
+                result.push(tmp);
+            }
+            let element = $('#combos_rule');
+            element.empty();
+            $.each(result, function (k, v) {
+                element.append(createElem(v, k));
+            });
+            console.log(tempResult);
+            console.log(result);
         }
+
+        function createElem(data, k1) {
+            let elem = '';
+            $.each(data, function (k, v) {
+                elem += '<div class="mr-2" style="margin-right: 10px">' +
+                    '<input type="hidden" value="' + v['id'] + '" name="rule-' + k1 + '[]">' +
+                    '<label for="rule-' + (k + 1) + '" class="form-label" style="font-size: 12px; font-weight: bold;margin-bottom: 0 ">' + v['nama'] + '</label>\n' +
+                    '<input style="font-size: 12px" type="text" class="form-control" id="rule-' + (k + 1) + '" value="' + v['value'] + '" name="nilai-' + k1 + '[]">\n' +
+                    '</div>';
+            });
+            return '<div class="d-flex align-items-center" style="margin-bottom: 10px">' +
+                '<p class="mb-0" style="font-size: 14px; font-weight: bold; margin-right: 20px">Rule Ke :' + (k1 + 1) + '</p>' +
+                '<div>' +
+                '<label for="percentage-' + (k1 + 1) + '" class="form-label" style="font-size: 12px; font-weight: bold; margin-bottom: 0">Persentase</label>' +
+                '<select name="persentase[]" style="font-size: 12px;" type="text" class="form-select-sm" id="percentage-' + (k1 + 1) + '" aria-label="Persentase">' +
+                '<option value="rendah">Rendah</option>' +
+                '<option value="cukup">Cukup</option>' +
+                '<option value="tinggi">Tinggi</option>' +
+                '</select>' +
+                '</div>' +
+                '</div>' +
+                '<div class="d-flex mb-1" style="margin-bottom: 10px">' + elem +
+                '</div>'
+        }
+
         $(document).ready(function () {
             $('.btn-rules').on('click', function () {
                 $('#exampleModal').modal('show');
-            })
+            });
 
             $('.maple-check').on('click', function () {
                 elRule();

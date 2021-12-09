@@ -63,6 +63,8 @@ Route::prefix('/siswa')->group(function (){
     });
 
     Route::get('dudi', [\App\Http\Controllers\Siswa\ProfileController::class,'index']);
+    Route::post('/dudi/create', [\App\Http\Controllers\Siswa\ProfileController::class,'createDudi']);
+    Route::get('/pembagiandudi', [\App\Http\Controllers\Siswa\ProfileController::class,'pembagianDudi']);
 });
 
 
@@ -77,12 +79,11 @@ Route::prefix('/dudi')->group(function (){
     Route::get('/pembagiandudi', function () {
         return view('dudi.hasilperhitungan');
     });
+    Route::post('/nilai/rule', [\App\Http\Controllers\Dudi\KebutuhanController::class, 'rule']);
 });
 
 
-Route::get('/siswa/pembagiandudi', function () {
-    return view('siswa.hasilperhitungan');
-});
+
 
 Route::get('/cek-nilai', [\App\Http\Controllers\Nilai\NilaiController::class, 'nilai']);
 Route::get('/cek-rules', [\App\Http\Controllers\Nilai\NilaiController::class, 'rules']);

@@ -66,13 +66,13 @@
                             {{ $v->siswa->nama }}
                         </td>
                         <td>
-                            {{ $v->pilihanmagang[0]->dudi->dudi->nama }}
+                            {{ isset($v->pilihanmagang[0]) ? $v->pilihanmagang[0]->dudi->dudi->nama : 'Belum Memilih' }}
                         </td>
                         <td>
-                            {{ $v->pilihanmagang[1]->dudi->dudi->nama }}
+                            {{ isset($v->pilihanmagang[1]) ? $v->pilihanmagang[1]->dudi->dudi->nama : 'Belum Memilih' }}
                         </td>
                         <td>
-                            {{ $v->pilihanmagang[2]->dudi->dudi->nama }}
+                            {{ isset($v->pilihanmagang[2]) ? $v->pilihanmagang[2]->dudi->dudi->nama : 'Belum Memilih' }}
                         </td>
                         <td>
                             <button class="btn btn-primary btn-sm btn-hasil" data-id="{{ $v->id }}"
@@ -175,7 +175,14 @@
                 let response = await $.get('/cek-nilai-siswa?id=' + id);
                 el.empty();
                 if (response['status'] === 200) {
-                    el.append(createElement(response['payload']['sorted']));
+                    if(response['payload']['sorted'].length > 0) {
+                        el.append(createElement(response['payload']['sorted']));
+                    }else {
+                        el.append('<div>' +
+                            '<p class="text-center">Siswa Belum Memilih Tempat Magang</p>' +
+                            '</div>')
+                    }
+
                 }
                 console.log(response);
             } catch (e) {
