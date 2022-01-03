@@ -41,6 +41,21 @@
                 <th>
                     Penempatan Dudi
                 </th>
+                <th>
+                    Nilai
+                </th>
+{{--                <th>--}}
+{{--                    Peringkat 2--}}
+{{--                </th>--}}
+{{--                <th>--}}
+{{--                    Nilai--}}
+{{--                </th>--}}
+{{--                <th>--}}
+{{--                    Peringkat 3--}}
+{{--                </th>--}}
+{{--                <th>--}}
+{{--                    Nilai--}}
+{{--                </th>--}}
                 </thead>
                 <tbody>
                 @foreach($result as $r)
@@ -57,6 +72,21 @@
                         <td>
                             {{ count($r['pilihan']) > 0 ? $r['pilihan'][0]['nama'] : 'Belum Ada Penilaian' }}
                         </td>
+                        <td>
+                            {{ count($r['pilihan']) > 0 ? $r['pilihan'][0]['defuzzifikasi']['total'] : 0 }}
+                        </td>
+{{--                        <td>--}}
+{{--                            {{ count($r['pilihan']) > 0 ? $r['pilihan'][1]['nama'] : 'Belum Ada Penilaian' }}--}}
+{{--                        </td>--}}
+{{--                        <td>--}}
+{{--                            {{ count($r['pilihan']) > 0 ? $r['pilihan'][1]['defuzzifikasi']['total'] : 0 }}--}}
+{{--                        </td>--}}
+{{--                        <td>--}}
+{{--                            {{ count($r['pilihan']) > 0 ? $r['pilihan'][2]['nama'] : 'Belum Ada Penilaian' }}--}}
+{{--                        </td>--}}
+{{--                        <td>--}}
+{{--                            {{ count($r['pilihan']) > 0 ? $r['pilihan'][2]['defuzzifikasi']['total'] : 0 }}--}}
+{{--                        </td>--}}
                     </tr>
                 @endforeach
                 </tbody>

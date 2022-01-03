@@ -261,6 +261,9 @@ class ProfileController extends Controller
             usort($tmpInterests, function ($a, $b) {
                 return $a['defuzzifikasi']['total'] < $b['defuzzifikasi']['total'];
             });
+            usort($tmpInterests, function ($a, $b) {
+                return $a['urutan'] > $b['urutan']  ;
+            });
             $sorted = [];
             foreach ($tmpInterests as $tmp) {
                 array_push($sorted, $tmp);
@@ -273,6 +276,8 @@ class ProfileController extends Controller
             $tmpResult['pilihan'] = $sorted;
             array_push($result, $tmpResult);
         }
+//        dump($result);
+//        die();
         return view('siswa.hasilperhitungan')->with(['result' => $result]);
     }
 }
