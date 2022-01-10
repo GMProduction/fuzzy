@@ -26,40 +26,37 @@
 
             <table class="table table-striped table-bordered ">
                 <thead>
-                    <th>
-                        #
-                    </th>
-                    <th>
-                        NIM
-                    </th>
-                    <th>
-                        Nama Siswa
-                    </th>
-                    <th>
-                        Penempatan Dudi
-                    </th>
-
-
-
-
-
+                <th>
+                    #
+                </th>
+                <th>
+                    NIM
+                </th>
+                <th>
+                    Nama Siswa
+                </th>
+                <th>
+                    Nilai
+                </th>
                 </thead>
-
-                <tr>
-                    <td>
-                        1
-                    </td>
-                    <td>
-                        331545212
-                    </td>
-                    <td>
-                        Joko
-                    </td>
-                    <td>
-                        Dudi A
-                    </td>
-
-                </tr>
+                <tbody>
+                @foreach($result as $r)
+                    <tr>
+                        <td>
+                            {{ $loop->index + 1 }}
+                        </td>
+                        <td>
+                            {{ $r['nim'] }}
+                        </td>
+                        <td>
+                            {{ $r['nama'] }}
+                        </td>
+                        <td>
+                            {{ count($r['pilihan']) > 0 ? $r['pilihan'][0]['defuzzifikasi']['total'] : 0 }}
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
 
             </table>
 
@@ -69,8 +66,6 @@
         <div>
 
 
-
-
         </div>
 
     </section>
@@ -78,6 +73,11 @@
 @endsection
 
 @section('script')
-
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.3/datatables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
 
 @endsection

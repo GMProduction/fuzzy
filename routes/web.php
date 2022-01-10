@@ -15,38 +15,36 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+    $dudi = \App\Models\TempatDudi::with(['user'])->get();
+
+    return view('home')->with(['dudi' => $dudi]);
 });
 
-Route::prefix('/admin')->group(function (){
+Route::prefix('/admin')->group(function () {
     Route::get('/admin', function () {
         return view('admin');
     });
 
-    Route::match(['post','get'],'/siswa', [\App\Http\Controllers\Admin\SiswaController::class,'index']);
-    Route::match(['post','get'],'/dudi', [\App\Http\Controllers\Admin\DudiController::class,'index']);
+    Route::match(['post', 'get'], '/siswa', [\App\Http\Controllers\Admin\SiswaController::class, 'index']);
+    Route::match(['post', 'get'], '/dudi', [\App\Http\Controllers\Admin\DudiController::class, 'index']);
 
-    Route::prefix('mapel')->group(function (){
-        Route::match(['post','get'],'/',[\App\Http\Controllers\Admin\MapelController::class,'index']);
+    Route::prefix('mapel')->group(function () {
+        Route::match(['post', 'get'], '/', [\App\Http\Controllers\Admin\MapelController::class, 'index']);
         Route::get('all', [\App\Http\Controllers\Admin\MapelController::class, 'getAll'])->name('getAllMapel');
         Route::get('indicator/{id}', [\App\Http\Controllers\Admin\MapelController::class, 'getIndicator'])->name('getIndicatorMapel');
         Route::post('indicator/{id}/create', [\App\Http\Controllers\Admin\MapelController::class, 'storeIndicator'])->name('storeIndicator');
     });
 
-   Route::prefix('nilai')->group(function (){
-       Route::match(['post','get'],'/',[\App\Http\Controllers\Admin\NilaiController::class,'index']);
-       Route::get('/by-siswa-mapel', [\App\Http\Controllers\Admin\NilaiController::class, 'BySiswa'])->name('getAllBySiswa');
-   });
+    Route::prefix('nilai')->group(function () {
+        Route::match(['post', 'get'], '/', [\App\Http\Controllers\Admin\NilaiController::class, 'index']);
+        Route::get('/by-siswa-mapel', [\App\Http\Controllers\Admin\NilaiController::class, 'BySiswa'])->name('getAllBySiswa');
+    });
 });
-
 
 
 Route::get('/admin', function () {
     return view('admin.dashboard');
 });
-
-
-
 
 
 Route::get('/admin/perhitungan', [\App\Http\Controllers\Nilai\NilaiController::class, 'perhitungan']);
@@ -57,39 +55,35 @@ Route::get('/tentang-kami', function () {
 });
 
 
-Route::prefix('/siswa')->group(function (){
+Route::prefix('/siswa')->group(function () {
     Route::get('/', function () {
         return view('siswa.dashboard');
     });
 
-    Route::get('dudi', [\App\Http\Controllers\Siswa\ProfileController::class,'index']);
-    Route::post('/dudi/create', [\App\Http\Controllers\Siswa\ProfileController::class,'createDudi']);
-    Route::get('/pembagiandudi', [\App\Http\Controllers\Siswa\ProfileController::class,'pembagianDudi']);
+    Route::get('dudi', [\App\Http\Controllers\Siswa\ProfileController::class, 'index']);
+    Route::post('/dudi/create', [\App\Http\Controllers\Siswa\ProfileController::class, 'createDudi']);
+    Route::get('/pembagiandudi', [\App\Http\Controllers\Siswa\ProfileController::class, 'pembagianDudi']);
 });
 
 
-Route::prefix('/dudi')->group(function (){
+Route::prefix('/dudi')->group(function () {
 
     Route::get('/', function () {
         return view('dudi.dashboard');
     });
 
-    Route::match(['GET','POST'],'nilai', [\App\Http\Controllers\Dudi\KebutuhanController::class,'index']);
+    Route::match(['GET', 'POST'], 'nilai', [\App\Http\Controllers\Dudi\KebutuhanController::class, 'index']);
 
-    Route::get('/pembagiandudi', function () {
-        return view('dudi.hasilperhitungan');
-    });
+    Route::get('/pembagiandudi', [\App\Http\Controllers\Dudi\KebutuhanController::class, 'pembagianDudi']);
     Route::post('/nilai/rule', [\App\Http\Controllers\Dudi\KebutuhanController::class, 'rule']);
 });
-
-
 
 
 Route::get('/cek-nilai', [\App\Http\Controllers\Nilai\NilaiController::class, 'nilai']);
 Route::get('/cek-rules', [\App\Http\Controllers\Nilai\NilaiController::class, 'rules']);
 Route::get('/cek-nilai-siswa', [\App\Http\Controllers\Nilai\NilaiController::class, 'nilaiSiswa']);
 
-Route::match(['POST','GET'],'/login', [AuthController::class, 'login']);
+Route::match(['POST', 'GET'], '/login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout']);
 Route::post('/register-member', [AuthController::class, 'registerMember']);
 
@@ -150,8 +144,6 @@ Route::post('/register-member', [AuthController::class, 'registerMember']);
 
 
 // Route::get('/get-keranjang',[HomeController::class,'getKeranjang']);
-
-
 
 
 // Route::post('/register',[AuthController::class,'register']);

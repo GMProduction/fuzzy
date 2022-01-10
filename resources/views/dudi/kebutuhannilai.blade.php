@@ -29,19 +29,43 @@
                             Buat Peraturan Penilaian
                         </button>
                     </div>
-                    <form method="POST" id="form" onsubmit="return save()">
-                        @csrf
-                        @foreach($mapel as $d)
-                            <div class="mb-3">
-                                <label for="nim" class="form-label">{{$d->nama}} :</label>
-                                <input name="mapel[]" hidden value="{{$d->id}}">
-                                <input type="text" class="form-control" id="dudi1" name="nilai[]"
-                                       value="{{$d->kebutuhan ? $d->kebutuhan->nilai : '0'}}">
-                            </div>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <td>#</td>
+                            <td>Nama</td>
+                            <td>Persentase</td>
+                            <td>Indikator</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($rules as $rule)
+                            <tr>
+                                <td>{{ $loop->index + 1 }}</td>
+                                <td>{{ $rule->name }}</td>
+                                <td>{{ $rule->percentage }}</td>
+                                <td>
+                                    @foreach($rule->indicator as $indicator)
+                                        <p>{{ $indicator->mapel->nama }} : {{ $indicator->value }}</p>
+                                    @endforeach
+                                </td>
+                            </tr>
                         @endforeach
+                        </tbody>
+                    </table>
+                    {{--                    <form method="POST" id="form" onsubmit="return save()">--}}
+                    {{--                        @csrf--}}
+                    {{--                        @foreach($mapel as $d)--}}
+                    {{--                            <div class="mb-3">--}}
+                    {{--                                <label for="nim" class="form-label">{{$d->nama}} :</label>--}}
+                    {{--                                <input name="mapel[]" hidden value="{{$d->id}}">--}}
+                    {{--                                <input type="text" class="form-control" id="dudi1" name="nilai[]"--}}
+                    {{--                                       value="{{$d->kebutuhan ? $d->kebutuhan->nilai : '0'}}">--}}
+                    {{--                            </div>--}}
+                    {{--                        @endforeach--}}
 
-                        <button type="submit" class="btn btn-success">Simpan</button>
-                    </form>
+                    {{--                        <button type="submit" class="btn btn-success">Simpan</button>--}}
+                    {{--                    </form>--}}
                 </div>
             </div>
             <div class="col-4">

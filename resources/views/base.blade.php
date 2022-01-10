@@ -32,7 +32,7 @@
             <div class="container">
                 <div class="d-flex items-center justify-content-between w-100">
                     <a href="/" class="d-block">
-                        <img src="{{ asset('static-image/logo.png') }}" style="height: 40px;" />
+                        <img src="{{ asset('/images/logo.png') }}" style="height: 40px;" />
 
                     </a>
 

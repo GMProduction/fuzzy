@@ -10,7 +10,7 @@
 
         <div id="slider" class="slider">
             <img style=" height: 500px"
-                src="https://sma1wng.sch.id/wp-content/uploads/2020/08/SMA-Negeri-1-Wonogiri-1.jpeg" />
+                src="{{ asset('/images/smk-sawit.jfif') }}" />
 
 
         </div>
@@ -21,9 +21,9 @@
         <h4 class="text-center fw-bold">Pilihan Du/Di</h4>
         <div id="kategori" class="">
             <div class=" row" style="height: 150px">
-            @for ($i = 0; $i < 6; $i++)
+            @foreach($dudi as $v)
                 <div class="col shine mx-2"></div>
-            @endfor
+            @endforeach
         </div>
         </div>
 
