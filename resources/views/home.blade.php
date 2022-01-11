@@ -10,7 +10,7 @@
 
         <div id="slider" class="slider">
             <img style=" height: 500px"
-                src="{{ asset('/images/smk-sawit.jfif') }}" />
+                src="{{ asset('/images/4.jpg') }}" />
 
 
         </div>

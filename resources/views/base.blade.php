@@ -195,8 +195,7 @@
                             </td>
 
                             <td>
-                                <p>Jl. Wonosari - Pakis, Dusun II, Randusari, Kec. Teras, Kabupaten Boyolali, Jawa
-                                    Tengah 57372
+                                <p>Jalan Raya SOLO - YOGYA KM. 15 Bendosari, Kec.Sawi
                                 </p>
 
                             </td>
@@ -213,7 +212,7 @@
                         </td>
 
                         <td>
-                            <p>0858-7586-6860
+                            <p>(0271) 76869209
                             </p>
 
                         </td>
@@ -229,7 +228,7 @@
                         </td>
 
                         <td>
-                            <p>aini_collection@gmail.com</p>
+                            <p>smkn01sawitboyolali@gmail.com</p>
 
                         </td>
 
@@ -238,11 +237,11 @@
 
                 </div>
                 <div class="col">
-                    <p class="title-footer">Menu</p>
+                    {{-- <p class="title-footer">Menu</p>
                     <div class="content-footer">
                         <a href="/belanja" class="d-block link">Belanja</a>
                         <a href="/tentang-kami" class="d-block link">Tentang Kami</a>
-                    </div>
+                    </div> --}}
                 </div>
 
                 <div class="col">
